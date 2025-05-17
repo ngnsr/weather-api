@@ -1,0 +1,28 @@
+# Ignore build artifacts
+
+dist/
+node_modules/
+
+# Ignore configuration and documentation
+
+.git
+.gitignore
+.eslintrc
+.eslintignore
+eslint.config.mjs
+nest-cli.json
+README.md
+LICENSE
+
+# Ignore test and temporary files
+
+_.log
+_.spec.ts
+coverage/
+
+# Ignore IDE and editor files
+
+.vscode/
+.idea/
+_.swp
+_.swo
