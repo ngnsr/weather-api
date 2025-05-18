@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import config from '../../config';
+import config from '../../../config';
 
 const db = config().db;
 export default new DataSource({

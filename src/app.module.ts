@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
-import { EmailModule } from './email/email.module';
+import { EmailModule } from '../shared/utils/email/email.module';
 import { WeatherModule } from './weather/weather.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { ConfigModule } from '@nestjs/config';
-import { PostgresModule } from '../shared/postgres/postgres.module';
+import { PostgresModule } from '../shared/db/postgres/postgres.module';
 import * as Joi from 'joi';
 import { entities } from './common/entities';
 import { migrations } from './common/migrations';
 import { ShedulerService } from './sheduler/sheduler.service';
+import { SubscriptionsController } from './subscriptions/subscriptions.controller';
+import { SubscriptionsService } from './subscriptions/subscriptions.service';
 
 @Module({
   imports: [
@@ -50,7 +52,7 @@ import { ShedulerService } from './sheduler/sheduler.service';
     SchedulerModule,
     SubscriptionsModule,
   ],
-  controllers: [],
-  providers: [ShedulerService],
+  controllers: [SubscriptionsController],
+  providers: [ShedulerService, SubscriptionsService],
 })
 export class AppModule {}
