@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { WeatherService } from './weather.service';
-import { CityParamDto } from 'src/common/dto/get-weather.dto';
+import { CityParamDto } from 'src/common/dto/city-param.dto';
 import {
   ApiBadRequestResponse,
   ApiNotFoundResponse,

@@ -15,7 +15,6 @@ export class NotificationsService {
 
   @Cron(CronExpression.EVERY_HOUR)
   async handleHourlySubscriptions() {
-    console.log('here');
     await this.process(SubscriptionFrequency.hourly);
   }
 
@@ -30,7 +29,6 @@ export class NotificationsService {
       relations: ['user'],
     });
 
-    console.log(subs);
     const uniqueCities = [...new Set(subs.map((sub) => sub.city))];
     const weatherMap = new Map<
       string,
@@ -45,8 +43,6 @@ export class NotificationsService {
       }
       weatherMap.set(city, weather);
     }
-
-    console.log(weatherMap);
 
     for (const sub of subs) {
       const weather = weatherMap.get(sub.city);
@@ -64,6 +60,5 @@ export class NotificationsService {
         unsubscribeLink: `http://localhost:3001/api/unsubscribe/${sub.unsubscribeToken}`, // TODO: fix
       });
     }
-    console.log('finished');
   }
 }

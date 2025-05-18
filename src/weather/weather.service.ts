@@ -1,7 +1,7 @@
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { CityParamDto } from 'src/common/dto/get-weather.dto';
+import { CityParamDto } from 'src/common/dto/city-param.dto';
 import { AxiosError } from 'axios';
 import { WeatherApiResponse } from 'src/common/types/weather-api-repsonse';
 import { WeatherApiConfig } from 'src/common/types/weather-api-config';
