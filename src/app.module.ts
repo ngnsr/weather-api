@@ -2,16 +2,14 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from '../shared/utils/email/email.module';
 import { WeatherModule } from './weather/weather.module';
-import { SchedulerModule } from './scheduler/scheduler.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { ConfigModule } from '@nestjs/config';
 import { PostgresModule } from '../shared/db/postgres/postgres.module';
 import * as Joi from 'joi';
 import { entities } from './common/entities';
 import { migrations } from './common/migrations';
-import { ShedulerService } from './sheduler/sheduler.service';
-import { SubscriptionsController } from './subscriptions/subscriptions.controller';
-import { SubscriptionsService } from './subscriptions/subscriptions.service';
+import { NotificationModule } from './notification/notification.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -43,16 +41,21 @@ import { SubscriptionsService } from './subscriptions/subscriptions.service';
         EMAIL_PORT: Joi.number().required(),
         EMAIL_USER: Joi.string().required(),
         EMAIL_PASS: Joi.string().required(),
+
+        // WEATHER API
+        WEATHER_API_URL: Joi.string().required(),
+        WEATHER_API_KEY: Joi.string().required(),
       }),
     }),
     PostgresModule.register(entities, migrations),
     UsersModule,
     EmailModule,
     WeatherModule,
-    SchedulerModule,
+    ScheduleModule.forRoot(),
+    NotificationModule,
     SubscriptionsModule,
   ],
-  controllers: [SubscriptionsController],
-  providers: [ShedulerService, SubscriptionsService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -2,8 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { SubscriptionEntity } from './subscription.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -15,4 +17,9 @@ export class UserEntity {
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
+
+  @OneToMany(() => SubscriptionEntity, (subscription) => subscription.user, {
+    cascade: true,
+  })
+  subscriptions: SubscriptionEntity[];
 }

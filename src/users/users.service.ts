@@ -15,11 +15,17 @@ export class UsersService {
   }
 
   async findOrSave(email: string) {
-    const user = await this.repository.findOneBy({ email: email });
+    let user = await this.repository.findOne({
+      where: { email },
+      relations: ['subscriptions'],
+    });
+    console.log('before');
+    console.log(user);
     if (!user) {
-      await this.repository.save({ email });
+      console.log('here');
+      user = await this.repository.save({ email });
+      console.log(user);
     }
-
     return user;
   }
 }

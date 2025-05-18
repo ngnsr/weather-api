@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { SubscriptionFrequency } from 'src/common/enums';
+import { Expose } from 'class-transformer';
 
 @Unique(['user', 'city'])
 @Entity('subscriptions')
@@ -16,7 +17,7 @@ export class SubscriptionEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => UserEntity, (entity) => entity.id, { nullable: false })
+  @ManyToOne(() => UserEntity, (user) => user.subscriptions)
   user: UserEntity;
 
   @Column({ type: 'enum', enum: SubscriptionFrequency })
@@ -26,21 +27,14 @@ export class SubscriptionEntity {
   city: string;
 
   @Column({ type: 'boolean', default: false })
-  isConfirmed: boolean;
-
-  @Column({ type: 'date', nullable: true })
-  confirmationTokenExpiresAt: Date;
-
-  @Column({ type: 'boolean', default: false })
-  isUnsubscribed: boolean;
-
-  @Column({ type: 'boolean', default: false, generated: true }) // isConfirmed && !isUnsubscribed
   isActive: boolean;
 
+  @Expose()
   @Column()
   @Generated('uuid')
   confirmationToken: string;
 
+  @Expose()
   @Column()
   @Generated('uuid')
   unsubscribeToken: string;
